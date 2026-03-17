@@ -1,0 +1,293 @@
+@import "tailwindcss";
+
+/* ===== AnjiteshOS Design System ===== */
+
+@theme {
+  /* Windows 7 Aero color palette */
+  --color-win7-blue: #245edb;
+  --color-win7-blue-dark: #1a3f8f;
+  --color-win7-taskbar: #1c3b6e;
+  --color-win7-taskbar-glass: rgba(28, 59, 110, 0.85);
+  --color-win7-start-hover: #3a7bd5;
+  --color-win7-titlebar: rgba(80, 130, 200, 0.9);
+  --color-win7-titlebar-inactive: rgba(120, 140, 170, 0.7);
+  --color-win7-border: rgba(100, 150, 220, 0.4);
+
+  /* Hacker / Terminal */
+  --color-terminal-bg: #0a0a0a;
+  --color-terminal-green: #00ff41;
+  --color-terminal-amber: #ffb300;
+  --color-terminal-red: #ff3333;
+
+  /* Glass */
+  --color-glass-bg: rgba(20, 30, 50, 0.6);
+  --color-glass-border: rgba(255, 255, 255, 0.12);
+  --color-glass-highlight: rgba(255, 255, 255, 0.06);
+
+  /* UI */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b4c7e0;
+  --color-text-muted: #6b7d94;
+  --color-surface: #1a1a2e;
+  --color-surface-elevated: #252540;
+
+  --font-sans: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', monospace;
+}
+
+/* ===== Reset & Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  background: #000;
+  color: var(--color-text-primary);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ===== Scrollbar (Win7 style) ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(100,150,220,0.4);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100,150,220,0.6);
+}
+
+/* ===== Windows 7 Aero Glass ===== */
+.win7-glass {
+  background: linear-gradient(
+    180deg,
+    rgba(160, 200, 255, 0.25) 0%,
+    rgba(80, 130, 200, 0.15) 50%,
+    rgba(40, 80, 150, 0.2) 100%
+  );
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border: 1px solid rgba(150, 200, 255, 0.3);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+    0 1px 0 rgba(255, 255, 255, 0.15) inset,
+    0 4px 20px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(100, 150, 220, 0.1);
+}
+
+.win7-glass-dark {
+  background: linear-gradient(
+    180deg,
+    rgba(30, 50, 80, 0.8) 0%,
+    rgba(20, 35, 60, 0.85) 100%
+  );
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  border: 1px solid rgba(100, 160, 240, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== Taskbar ===== */
+.taskbar {
+  background: linear-gradient(
+    180deg,
+    rgba(30, 80, 160, 0.95) 0%,
+    rgba(15, 45, 100, 0.98) 40%,
+    rgba(10, 30, 70, 0.98) 100%
+  );
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-top: 1px solid rgba(120, 180, 255, 0.3);
+  box-shadow:
+    0 -2px 10px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(50, 100, 200, 0.15);
+}
+
+/* ===== Win7 Start Button ===== */
+.start-orb {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%,
+    #5eb3f5 0%,
+    #2b86d9 30%,
+    #1a5fb4 60%,
+    #0d3f8c 100%
+  );
+  border: 2px solid rgba(150, 200, 255, 0.5);
+  box-shadow:
+    0 0 8px rgba(50, 130, 220, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  position: relative;
+  z-index: 10;
+  margin-top: -8px;
+}
+
+.start-orb:hover {
+  background: radial-gradient(circle at 35% 35%,
+    #7ec8ff 0%,
+    #3d9be8 30%,
+    #2470c7 60%,
+    #1455a5 100%
+  );
+  box-shadow:
+    0 0 16px rgba(80, 160, 240, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+.start-orb:active {
+  transform: scale(0.95);
+  background: radial-gradient(circle at 35% 35%,
+    #4a9fd4 0%,
+    #1f72b8 30%,
+    #0f4f8f 60%,
+    #082f6a 100%
+  );
+}
+
+/* ===== Title Bar Buttons ===== */
+.titlebar-btn {
+  width: 28px;
+  height: 20px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: all 0.1s ease;
+}
+
+.titlebar-btn-minimize {
+  background: linear-gradient(180deg, #4ca3e0 0%, #2d7ab8 100%);
+  color: white;
+}
+.titlebar-btn-minimize:hover {
+  background: linear-gradient(180deg, #6db8ec 0%, #3d8cc8 100%);
+}
+
+.titlebar-btn-maximize {
+  background: linear-gradient(180deg, #4ca3e0 0%, #2d7ab8 100%);
+  color: white;
+}
+.titlebar-btn-maximize:hover {
+  background: linear-gradient(180deg, #6db8ec 0%, #3d8cc8 100%);
+}
+
+.titlebar-btn-close {
+  background: linear-gradient(180deg, #e04c4c 0%, #c43030 100%);
+  color: white;
+}
+.titlebar-btn-close:hover {
+  background: linear-gradient(180deg, #f06060 0%, #d44040 100%);
+}
+
+/* ===== Desktop Icon ===== */
+.desktop-icon {
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+}
+
+.desktop-icon:hover {
+  background: rgba(100, 160, 255, 0.15);
+  border-color: rgba(100, 160, 255, 0.3);
+}
+
+.desktop-icon.selected {
+  background: rgba(80, 140, 240, 0.25);
+  border-color: rgba(80, 140, 240, 0.5);
+}
+
+/* ===== Boot Screen ===== */
+.boot-text {
+  font-family: var(--font-mono);
+  color: var(--color-terminal-green);
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
+}
+
+/* ===== Loading bar ===== */
+@keyframes loading-progress {
+  0% { width: 0%; }
+  20% { width: 25%; }
+  50% { width: 55%; }
+  75% { width: 80%; }
+  100% { width: 100%; }
+}
+
+.loading-bar-fill {
+  animation: loading-progress 3s ease-in-out forwards;
+  background: linear-gradient(90deg,
+    #00ff41 0%,
+    #00cc33 50%,
+    #00ff41 100%
+  );
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+/* ===== Login Screen ===== */
+.login-bg {
+  background: linear-gradient(
+    135deg,
+    #0b1628 0%,
+    #132744 30%,
+    #1a3a5c 50%,
+    #0f2940 70%,
+    #081829 100%
+  );
+}
+
+/* ===== Typing cursor ===== */
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  animation: blink-cursor 1s step-end infinite;
+}
+
+/* ===== Notification toast ===== */
+@keyframes slide-in-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.notification-enter {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+/* ===== Flashlight mode ===== */
+.flashlight-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: radial-gradient(
+    circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    transparent 0%,
+    rgba(0, 0, 0, 0.97) 100%
+  );
+}

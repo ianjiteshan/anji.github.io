@@ -41,13 +41,22 @@ export default function DesktopIcon({
 
   return (
     <motion.div
-      className="desktop-icon w-20 flex flex-col items-center gap-1.5"
+      className="desktop-icon w-[90px] flex flex-col items-center gap-1.5 cursor-pointer relative z-10"
       onDoubleClick={handleDoubleClick}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
-      <div className="text-4xl drop-shadow-lg">{icon}</div>
-      <span className="text-[11px] text-white text-center leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] font-medium">
+      {icon.startsWith('data:image') || icon.startsWith('http') ? (
+        <img
+          src={icon}
+          alt={title}
+          className="w-14 h-14 object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] pointer-events-none select-none"
+          draggable={false}
+        />
+      ) : (
+        <div className="text-5xl drop-shadow-lg">{icon}</div>
+      )}
+      <span className="text-[13px] text-white text-center leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] font-medium px-1 rounded-sm selection:bg-transparent">
         {title}
       </span>
     </motion.div>

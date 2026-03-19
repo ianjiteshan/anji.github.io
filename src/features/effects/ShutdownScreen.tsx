@@ -52,7 +52,7 @@ export default function ShutdownScreen() {
             ⏻ Press to restart
           </motion.button>
           <div className="mt-4 text-white/10 text-xs">
-            Thank you for exploring AnjiteshOS
+            Thank you for exploring ShanOS
           </div>
         </motion.div>
       )}

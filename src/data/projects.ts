@@ -1,4 +1,4 @@
-// Project data for AnjiteshOS
+// Project data for ShanOS
 export interface Project {
   id: string
   name: string

@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { useSystemStore } from '@/core/store/useSystemStore'
 import { useIsMobile } from '@/core/hooks/useIsMobile'
@@ -10,6 +10,7 @@ import FlashlightCursor from '@/features/effects/FlashlightCursor'
 const Desktop = lazy(() => import('@/features/os/Desktop'))
 const ShutdownScreen = lazy(() => import('@/features/effects/ShutdownScreen'))
 const RecruiterMode = lazy(() => import('@/features/recruiter/RecruiterMode'))
+const FORCE_OS_MODE_KEY = 'shanos-force-os-mode'
 
 function LoadingFallback() {
   return (
@@ -21,11 +22,28 @@ function LoadingFallback() {
 
 export default function App() {
   const bootPhase = useSystemStore((s) => s.bootPhase)
-  const isMobile = useIsMobile()
+  const isPhone = useIsMobile(640)
+  const [isRecruiterHashActive, setIsRecruiterHashActive] = useState(() => window.location.hash.startsWith('#recruiter'))
+  const [forceOSMode, setForceOSMode] = useState(() => sessionStorage.getItem(FORCE_OS_MODE_KEY) === 'true')
 
-  // Mobile auto-redirects to Recruiter Mode
+  useEffect(() => {
+    const syncModeState = () => {
+      setIsRecruiterHashActive(window.location.hash.startsWith('#recruiter'))
+      setForceOSMode(sessionStorage.getItem(FORCE_OS_MODE_KEY) === 'true')
+    }
+
+    window.addEventListener('hashchange', syncModeState)
+    window.addEventListener('focus', syncModeState)
+
+    return () => {
+      window.removeEventListener('hashchange', syncModeState)
+      window.removeEventListener('focus', syncModeState)
+    }
+  }, [])
+
+  // Phones auto-redirect to Recruiter Mode
   // Also check URL hash for manual recruiter mode
-  const isRecruiterMode = isMobile || window.location.hash === '#recruiter'
+  const isRecruiterMode = isRecruiterHashActive || (isPhone && !forceOSMode)
 
   if (isRecruiterMode) {
     return (

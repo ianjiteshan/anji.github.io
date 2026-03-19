@@ -10,6 +10,8 @@ export interface OSWindow {
   y: number
   width: number
   height: number
+  minWidth?: number
+  minHeight?: number
   zIndex: number
 }
 
@@ -23,6 +25,7 @@ interface WindowState {
   restoreWindow: (id: string) => void
   focusWindow: (id: string) => void
   updateWindowPosition: (id: string, x: number, y: number) => void
+  updateWindowSize: (id: string, width: number, height: number, x?: number, y?: number) => void
 }
 
 export const useWindowStore = create<WindowState>((set, get) => ({
@@ -77,5 +80,16 @@ export const useWindowStore = create<WindowState>((set, get) => ({
   updateWindowPosition: (id, x, y) =>
     set((s) => ({
       windows: s.windows.map((w) => (w.id === id ? { ...w, x, y } : w)),
+    })),
+
+  updateWindowSize: (id, width, height, x, y) =>
+    set((s) => ({
+      windows: s.windows.map((w) => {
+        if (w.id !== id) return w
+        const updates: Partial<OSWindow> = { width, height }
+        if (x !== undefined) updates.x = x
+        if (y !== undefined) updates.y = y
+        return { ...w, ...updates }
+      }),
     })),
 }))

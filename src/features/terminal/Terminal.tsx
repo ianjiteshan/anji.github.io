@@ -17,7 +17,7 @@ interface CommandContext {
 const COMMANDS: Record<string, CommandFn> = {
   help: () => [
     '╔══════════════════════════════════════════╗',
-    '║     AnjiteshOS Terminal — v2.6           ║',
+    '║     ShanOS Terminal — v2.6           ║',
     '╠══════════════════════════════════════════╣',
     '║  help          Show this menu            ║',
     '║  about         About Anjitesh            ║',
@@ -41,16 +41,17 @@ const COMMANDS: Record<string, CommandFn> = {
     '',
     '  Anjitesh Shandilya',
     '  ──────────────────',
-    '  Backend-focused Full-Stack Engineer',
-    '  B.Tech IT @ USICT, GGSIPU (CGPA: 8)',
+    '  Backend Engineer • AI/ML • Distributed Systems',
+    '  B.Tech IT @ USICT, GGSIPU (CGPA: 8.0/10)',
     '',
-    '  Specializations:',
-    '    → Distributed Systems & APIs',
-    '    → AI/ML & Agentic AI',
-    '    → Production Backend Systems',
+    '  Current Focus:',
+    '    → Backend-heavy software & API-driven architecture',
+    '    → AI workflows & intelligent automation',
+    '    → Production-ready systems at scale',
     '',
-    '  Currently building AI-powered tools',
-    '  and scalable backend architectures.',
+    '  "If you need someone who can build the API, explain',
+    '   the ML system, and present the work clearly,',
+    '   I fit that lane well."',
     '',
   ],
 
@@ -117,8 +118,9 @@ const COMMANDS: Record<string, CommandFn> = {
 
   whoami: () => [
     '  anjitesh@shanos',
-    '  Backend Engineer | AI/ML | Systems',
+    '  Backend Engineer | AI/ML | Distributed Systems',
     '  Location: New Delhi, India',
+    '  Open to: SDE / ML roles',
   ],
 
   ls: () => [
@@ -135,20 +137,19 @@ const COMMANDS: Record<string, CommandFn> = {
       return [
         '',
         '  # Anjitesh Shandilya',
-        '  Backend Engineer | AI/ML | Full-Stack',
+        '  Backend Engineer | AI/ML | Distributed Systems',
         '',
         '  ## Education',
-        '  B.Tech IT — USICT, GGSIPU (2022–2026)',
-        '  CGPA: 7.99/10',
+        '  • B.Tech IT — USICT, GGSIPU (2022–2026)',
+        '    CGPA: 8.0/10',
         '',
         '  ## Experience',
-        '  • MNRE, Gov of India — AI/ML Intern',
-        '  • IBM SkillsBuild — Agentic AI Architect',
-        '  • NexusLogic Solutions — Backend Intern',
+        '  • MNRE, Gov of India — Software Development Engineer Intern',
+        '  • IBM SkillsBuild / IBM — AI Intern',
         '',
         '  ## Top Projects',
         '  • PVSCAN — 98.5% accuracy solar inspection',
-        '  • ShareSync — Hybrid cloud + P2P',
+        '  • ShareSync — Hybrid cloud + P2P architecture',
         '  • WithU247 — AI mental health platform',
         '',
         '  Type "open resume" for full PDF',
@@ -161,17 +162,17 @@ const COMMANDS: Record<string, CommandFn> = {
   neofetch: () => [
     '',
     '       ╔══════════╗',
-    '       ║ AnjiteshOS ║     anjitesh@shanos',
+    '       ║ ShanOS ║     anjitesh@shanos',
     '       ╚══════════╝     ─────────────────',
-    '         ╱╲              OS: AnjiteshOS v2.6',
+    '         ╱╲              OS: ShanOS v2.6',
     '        ╱  ╲             Host: Anjitesh Shandilya',
-    '       ╱    ╲            Kernel: MERN-Stack 5.0',
+    '       ╱    ╲            Role: Backend & AI Engineer',
     '      ╱______╲           Shell: zsh + node',
     '     ╱________╲          Uptime: ~3 years',
-    '    ╱__________╲         Packages: 200+ LeetCode',
+    '    ╱__________╲         Packages: 417+ DSA Solved',
     '                         CPU: Backend Systems',
     '                         GPU: AI/ML Core',
-    '                         Memory: 7.99 GPA / 10',
+    '                         Memory: 8.0 CGPA / 10',
     '',
   ],
 
@@ -187,7 +188,7 @@ const COMMANDS: Record<string, CommandFn> = {
 
   shutdown: (_args, ctx) => {
     setTimeout(() => ctx.setBootPhase('shutdown'), 1000)
-    return ['  Shutting down AnjiteshOS...', '  Goodbye.']
+    return ['  Shutting down ShanOS...', '  Goodbye.']
   },
 
   'sudo': (args) => {
@@ -215,7 +216,7 @@ export default function Terminal() {
   const termRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const [history, setHistory] = useState<string[]>([
-    'AnjiteshOS Terminal v2.6',
+    'ShanOS Terminal v2.6',
     'Type "help" for available commands.',
     '',
   ])

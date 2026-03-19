@@ -69,7 +69,7 @@ export const timeline: TimelineEntry[] = [
   {
     year: '2025-12',
     label: 'SYS_STATUS → Current',
-    detail: 'CGPA 7.99/10 · 200+ LeetCode · Building production AI systems · Open to SDE/ML roles.',
+    detail: 'CGPA 8.0/10 · 200+ LeetCode · Building production AI systems · Open to SDE/ML roles.',
     type: 'achievement',
   },
 ]

@@ -4,6 +4,21 @@ export interface SkillCategory {
   skills: string[]
 }
 
+export type CodingProfileIconKind =
+  | 'github'
+  | 'linkedin'
+  | 'leetcode'
+  | 'gfg'
+  | 'instagram'
+  | 'x'
+  | 'youtube'
+
+export interface CodingProfile {
+  url: string
+  label: string
+  iconKind: CodingProfileIconKind
+}
+
 export const skillCategories: SkillCategory[] = [
   {
     name: 'Backend & APIs',
@@ -37,9 +52,12 @@ export const skillCategories: SkillCategory[] = [
   },
 ]
 
-export const codingProfiles = {
-  leetcode: { url: 'https://leetcode.com/u/ianjiteshan', label: 'LeetCode' },
-  gfg: { url: 'https://www.geeksforgeeks.org/profile/ianjiteshan', label: 'GeeksForGeeks' },
-  github: { url: 'https://github.com/ianjiteshan', label: 'GitHub' },
-  linkedin: { url: 'https://linkedin.com/in/ianjiteshan', label: 'LinkedIn' },
+export const codingProfiles: Record<string, CodingProfile> = {
+  leetcode: { url: 'https://leetcode.com/u/ianjiteshan', label: 'LeetCode', iconKind: 'leetcode' },
+  gfg: { url: 'https://www.geeksforgeeks.org/profile/ianjiteshan', label: 'GeeksForGeeks', iconKind: 'gfg' },
+  github: { url: 'https://github.com/ianjiteshan', label: 'GitHub', iconKind: 'github' },
+  linkedin: { url: 'https://linkedin.com/in/ianjiteshan', label: 'LinkedIn', iconKind: 'linkedin' },
+  instagram: { url: 'https://instagram.com/ianjiteshan', label: 'Instagram', iconKind: 'instagram' },
+  x: { url: 'https://x.com/ianjiteshan', label: 'X', iconKind: 'x' },
+  youtube: { url: 'https://www.youtube.com/channel/UC-LzryGAI5eYEWWWDFce7lQ', label: 'YouTube', iconKind: 'youtube' },
 }

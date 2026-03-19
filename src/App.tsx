@@ -32,12 +32,45 @@ export default function App() {
       setForceOSMode(sessionStorage.getItem(FORCE_OS_MODE_KEY) === 'true')
     }
 
+    // Disable Right-Click
+    const handleContextMenu = (e: MouseEvent) => {
+      e.preventDefault()
+    }
+
+    // Disable Inspect Element / View Source shortcuts
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // F12
+      if (e.key === 'F12') {
+        e.preventDefault()
+      }
+      // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
+      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) {
+        e.preventDefault()
+      }
+      // Cmd+Option+I, Cmd+Option+J, Cmd+Option+C (Mac)
+      if (e.metaKey && e.altKey && (e.key === 'i' || e.key === 'j' || e.key === 'c' || e.key === 'I' || e.key === 'J' || e.key === 'C')) {
+        e.preventDefault()
+      }
+      // Ctrl+U (View Source)
+      if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault()
+      }
+      // Cmd+Option+U (Mac View Source)
+      if (e.metaKey && e.altKey && (e.key === 'u' || e.key === 'U')) {
+        e.preventDefault()
+      }
+    }
+
     window.addEventListener('hashchange', syncModeState)
     window.addEventListener('focus', syncModeState)
+    window.addEventListener('contextmenu', handleContextMenu)
+    window.addEventListener('keydown', handleKeyDown)
 
     return () => {
       window.removeEventListener('hashchange', syncModeState)
       window.removeEventListener('focus', syncModeState)
+      window.removeEventListener('contextmenu', handleContextMenu)
+      window.removeEventListener('keydown', handleKeyDown)
     }
   }, [])
 

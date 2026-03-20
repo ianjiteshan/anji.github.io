@@ -1,1 +1,0 @@
-import{j as l}from"./index-DUp74nYk.js";function o(){return l.jsx("div",{className:"w-full h-full bg-[#c0c0c0] flex flex-col",children:l.jsx("iframe",{src:"https://jspaint.app",className:"w-full flex-1 border-none",title:"JS Paint",sandbox:"allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups"})})}export{o as default};

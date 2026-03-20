@@ -837,7 +837,7 @@ export default function RecruiterMode() {
                   <div className="-mt-14 flex items-end justify-between gap-4">
                     <div className="flex items-end gap-4">
                       <div className="h-24 w-24 overflow-hidden rounded-[1.5rem] border-4 border-white bg-[#efe7d8] shadow-lg">
-                        <img src="/images/avatar.png" alt="Anjitesh" className="h-full w-full object-cover" />
+                        <img src="/images/avatar.webp" alt="Anjitesh" className="h-full w-full object-cover" loading="lazy" />
                       </div>
                       <div
                         className={`rounded-[1.35rem] border px-4 py-3 pb-3.5 backdrop-blur-md ${

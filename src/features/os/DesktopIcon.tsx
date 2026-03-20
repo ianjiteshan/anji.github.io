@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { memo, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { useWindowStore } from '@/core/store/useWindowStore'
 import { soundManager } from '@/core/utils/sounds'
@@ -14,7 +14,7 @@ interface DesktopIconProps {
   height?: number
 }
 
-export default function DesktopIcon({
+export default memo(function DesktopIcon({
   id,
   title,
   icon,
@@ -61,4 +61,4 @@ export default function DesktopIcon({
       </span>
     </motion.div>
   )
-}
+})

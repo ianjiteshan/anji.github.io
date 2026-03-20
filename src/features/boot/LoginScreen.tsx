@@ -121,7 +121,7 @@ export default function LoginScreen() {
             {/* Main User: Anjitesh */}
             <div className="flex items-center gap-4 group cursor-pointer" onClick={enterDesktop}>
               <div className="w-[72px] h-[72px] rounded-md overflow-hidden border-2 border-white/80 shadow-lg group-hover:border-[#ff9900] group-hover:shadow-[0_0_15px_rgba(255,153,0,0.6)] transition-all duration-200">
-                <img src="/images/avatar.png" alt="Anjitesh" className="w-full h-full object-cover" />
+                <img src="/images/avatar.webp" alt="Anjitesh" className="w-full h-full object-cover" loading="lazy" />
               </div>
               <div>
                 <div className="text-[22px] font-semibold text-white tracking-wide drop-shadow-md group-hover:text-yellow-100 transition-colors">

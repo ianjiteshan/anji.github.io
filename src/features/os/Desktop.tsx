@@ -17,10 +17,10 @@ const AboutMe = lazy(() => import('@/features/about/AboutMe'))
 const MusicPlayer = lazy(() => import('@/features/apps/MusicPlayer'))
 const ImageViewer = lazy(() => import('@/features/apps/ImageViewer'))
 
-// Importing widgets statically so they render immediately
-import SystemLogs from '@/features/timeline/SystemLogs'
-import SystemStatus from '@/features/os/SystemStatus'
-import DevMetrics from '@/features/metrics/DevMetrics'
+// Lazy load widgets as well
+const SystemLogs = lazy(() => import('@/features/timeline/SystemLogs'))
+const SystemStatus = lazy(() => import('@/features/os/SystemStatus'))
+const DevMetrics = lazy(() => import('@/features/metrics/DevMetrics'))
 
 const xpIcons = {
   about: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="%234CAF50"/><path fill="%23FFF" d="M22 14h4v6h-4zm0 8h4v12h-4z"/></svg>`,
@@ -54,6 +54,7 @@ const COMPONENT_MAP: Record<string, React.ComponentType> = {
   paint: lazy(() => import('@/features/apps/JSPaint')),
   music: MusicPlayer,
   photos: ImageViewer,
+  timeline: SystemLogs,
 }
 
 export default function Desktop() {
@@ -108,12 +109,16 @@ export default function Desktop() {
         className="absolute top-6 bottom-14 right-4 w-[340px] z-[5] pointer-events-none overflow-y-auto pb-4 flex flex-col gap-5 items-end"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
-        <div className="pointer-events-auto w-[320px] shrink-0 origin-top">
-          <SystemStatus />
-        </div>
-        <div className="pointer-events-auto w-[320px] shrink-0 origin-top">
-          <DevMetrics />
-        </div>
+        <Suspense fallback={<div className="w-[320px] h-32 bg-black/20 rounded-[32px] backdrop-blur-xl animate-pulse border border-white/10" />}>
+          <div className="pointer-events-auto w-[320px] shrink-0 origin-top">
+            <SystemStatus />
+          </div>
+        </Suspense>
+        <Suspense fallback={<div className="w-[320px] h-48 bg-black/20 rounded-[32px] backdrop-blur-xl animate-pulse border border-white/10" />}>
+          <div className="pointer-events-auto w-[320px] shrink-0 origin-top">
+            <DevMetrics />
+          </div>
+        </Suspense>
       </div>
 
       {/* Desktop icons */}

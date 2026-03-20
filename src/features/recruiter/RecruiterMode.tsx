@@ -743,7 +743,7 @@ export default function RecruiterMode() {
               {isNightMode ? 'Gotham Light' : 'Gotham Dark'}
             </button>
             <a
-              href="/Resume.pdf"
+              href="Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${theme.pillSoft}`}
@@ -837,7 +837,7 @@ export default function RecruiterMode() {
                   <div className="-mt-14 flex items-end justify-between gap-4">
                     <div className="flex items-end gap-4">
                       <div className="h-24 w-24 overflow-hidden rounded-[1.5rem] border-4 border-white bg-[#efe7d8] shadow-lg">
-                        <img src="/images/avatar.webp" alt="Anjitesh" className="h-full w-full object-cover" loading="lazy" />
+                        <img src="images/avatar.webp" alt="Anjitesh" className="h-full w-full object-cover" loading="lazy" />
                       </div>
                       <div
                         className={`rounded-[1.35rem] border px-4 py-3 pb-3.5 backdrop-blur-md ${
@@ -955,7 +955,7 @@ export default function RecruiterMode() {
                     muted
                     playsInline
                   >
-                    <source src="/media-darth-vader.mp4" type="video/mp4" />
+                    <source src="media-darth-vader.mp4" type="video/mp4" />
                   </video>
                   <div className={`absolute inset-0 ${isNightMode ? 'bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.12),transparent_46%),linear-gradient(180deg,rgba(8,10,16,0.05)_0%,rgba(8,10,16,0.28)_100%)]' : 'bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.1),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.04)_0%,rgba(17,17,17,0.12)_100%)]'}`} />
                 </div>
@@ -1294,7 +1294,7 @@ export default function RecruiterMode() {
                 </div>
                 <div className="flex flex-wrap gap-3">
                   <a
-                    href="/Resume.pdf"
+                    href="Resume.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="rounded-full bg-white px-5 py-3 text-sm font-medium text-[#111111] transition-colors hover:bg-[#f4efe6]"

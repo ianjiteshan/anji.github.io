@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://anji.is-a.dev/sitemap.xml

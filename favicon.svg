@@ -1,0 +1,44 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Deep purple -> Electric blue -> Cyan gradient -->
+    <linearGradient id="brand" x1="0" y1="512" x2="512" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7928CA"/>
+      <stop offset="50%" stop-color="#0070F3"/>
+      <stop offset="100%" stop-color="#00DFD8"/>
+    </linearGradient>
+
+    <!-- Subtle glow filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" />
+    </filter>
+  </defs>
+
+  <!-- Modern dark squircle background -->
+  <rect width="512" height="512" rx="112" fill="#0A0A0B" />
+  
+  <!-- Glow Layer -->
+  <g filter="url(#glow)" opacity="0.6">
+    <path d="M 140 383 L 256 129 L 372 383" 
+          stroke="url(#brand)" 
+          stroke-width="64" 
+          stroke-linejoin="round" 
+          stroke-linecap="round" />
+    <line x1="178" y1="299" x2="334" y2="299" 
+          stroke="url(#brand)" 
+          stroke-width="64" 
+          stroke-linecap="round" />
+  </g>
+
+  <!-- Sharp Main Layer -->
+  <g>
+    <path d="M 140 383 L 256 129 L 372 383" 
+          stroke="url(#brand)" 
+          stroke-width="64" 
+          stroke-linejoin="round" 
+          stroke-linecap="round" />
+    <line x1="178" y1="299" x2="334" y2="299" 
+          stroke="url(#brand)" 
+          stroke-width="64" 
+          stroke-linecap="round" />
+  </g>
+</svg>

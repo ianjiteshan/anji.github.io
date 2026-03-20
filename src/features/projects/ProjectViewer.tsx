@@ -83,7 +83,7 @@ export default function ProjectViewer() {
           <div className="w-full bg-[#111111] px-8 py-5 flex items-center justify-between sticky top-0 z-10 shadow-lg">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center border-2 border-white/20 shadow-md">
-                <img src="images/avatar.webp" className="w-full h-full object-cover rounded-full" alt="Avatar" loading="lazy"/>
+                <img src={`${import.meta.env.BASE_URL}images/avatar.webp`} className="w-full h-full object-cover rounded-full" alt="Avatar" loading="lazy"/>
               </div>
               <h1 className="text-2xl font-black text-white tracking-widest drop-shadow-md">MyProjects</h1>
             </div>

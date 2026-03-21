@@ -21,24 +21,48 @@
     font-family: 'Tahoma', 'Segoe UI', sans-serif;
   }
 
-  /* Custom Scrollbar styled for XP */
+  /* Modern Sleek Scrollbar */
   ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.5);
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /* Custom Scrollbar scoped for XP Elements */
+  .win7-glass ::-webkit-scrollbar,
+  .winxp-start-menu ::-webkit-scrollbar {
     width: 14px;
     height: 14px;
   }
-  ::-webkit-scrollbar-track {
+  .win7-glass ::-webkit-scrollbar-track,
+  .winxp-start-menu ::-webkit-scrollbar-track {
     background: #ece9d8;
     border-left: 1px solid #aca899;
   }
-  ::-webkit-scrollbar-thumb {
+  .win7-glass ::-webkit-scrollbar-thumb,
+  .winxp-start-menu ::-webkit-scrollbar-thumb {
     background: #cddbfe;
     border: 1px solid #4a6ea9;
     border-radius: 2px;
   }
-  ::-webkit-scrollbar-thumb:hover {
+  .win7-glass ::-webkit-scrollbar-thumb:hover,
+  .winxp-start-menu ::-webkit-scrollbar-thumb:hover {
     background: #b0c4de;
   }
-  ::-webkit-scrollbar-corner {
+  .win7-glass ::-webkit-scrollbar-corner,
+  .winxp-start-menu ::-webkit-scrollbar-corner {
     background: #ece9d8;
   }
 }

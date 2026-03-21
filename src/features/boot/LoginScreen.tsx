@@ -39,24 +39,24 @@ export default function LoginScreen() {
   return (
     <div className="fixed inset-0 z-[9999] overflow-hidden bg-[#5a7edc] font-sans selection:bg-transparent">
       {/* Background scanline pattern (imitating the Windows XP blue login background) */}
-      <div 
+      <div
         className="absolute inset-0 opacity-10 pointer-events-none"
         style={{
           backgroundImage: 'linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)',
           backgroundSize: '4px 4px'
         }}
       />
-      
+
       {/* Top and Bottom solid blue bars */}
       <div className="absolute top-0 left-0 right-0 h-24 bg-[#003399]" />
-      
+
       {/* Bottom bar with orange stripe */}
       <div className="absolute bottom-0 left-0 right-0 h-28 bg-[#003399] flex flex-col justify-between">
         <div className="h-1 bg-gradient-to-r from-orange-500 via-orange-400 to-orange-500" />
-        
+
         {/* Bottom bar content */}
         <div className="flex-1 flex items-center justify-between px-10">
-          <button 
+          <button
             onClick={handleRestartClick}
             className="flex items-center gap-2 group cursor-pointer"
           >
@@ -69,7 +69,7 @@ export default function LoginScreen() {
           </button>
 
           <div className="text-right text-white/80 text-sm leading-tight drop-shadow-md">
-            After you log on, the system's yours to explore.<br/>
+            After you log on, the system's yours to explore.<br />
             Every detail has been designed with a purpose.
           </div>
         </div>
@@ -77,14 +77,14 @@ export default function LoginScreen() {
 
       {/* Center Content Layout (Wordmark Left, User Right) */}
       <div className="absolute inset-0 top-24 bottom-28 flex items-center justify-center">
-        
+
         {/* Central divider line */}
         <div className="absolute left-1/2 top-10 bottom-10 w-px bg-gradient-to-b from-transparent via-white/30 to-transparent" />
 
         <div className="w-full max-w-5xl flex items-center">
-          
+
           {/* Left Side: Wordmark */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
@@ -113,7 +113,7 @@ export default function LoginScreen() {
           </motion.div>
 
           {/* Right Side: User Accounts */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -164,13 +164,13 @@ export default function LoginScreen() {
       {/* Turn Off Computer Dialog Overlay */}
       <AnimatePresence>
         {showTurnOffDialog && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="absolute inset-0 z-50 flex items-center justify-center bg-black/60 grayscale"
           >
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1, filter: 'none' }}
               exit={{ scale: 0.95, opacity: 0 }}
@@ -181,25 +181,25 @@ export default function LoginScreen() {
                 <span className="text-white font-bold tracking-wide">Turn off ShanOS</span>
                 {/* Mini logo */}
                 <div className="grid grid-cols-2 gap-[1px] scale-75">
-                  <div className="w-2 h-2 bg-red-500 rounded-tl-sm"/>
-                  <div className="w-2 h-2 bg-green-500 rounded-tr-sm"/>
-                  <div className="w-2 h-2 bg-blue-500 rounded-bl-sm"/>
-                  <div className="w-2 h-2 bg-yellow-400 rounded-br-sm"/>
+                  <div className="w-2 h-2 bg-red-500 rounded-tl-sm" />
+                  <div className="w-2 h-2 bg-green-500 rounded-tr-sm" />
+                  <div className="w-2 h-2 bg-blue-500 rounded-bl-sm" />
+                  <div className="w-2 h-2 bg-yellow-400 rounded-br-sm" />
                 </div>
               </div>
-              
+
               <div className="bg-gradient-to-b from-[#5a7edc] to-[#3a5ebc] pt-8 pb-4 border-l border-r border-[#003399] relative">
                 {/* Dialog scanlines */}
-                <div 
+                <div
                   className="absolute inset-0 opacity-10 pointer-events-none"
                   style={{
                     backgroundImage: 'linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)',
                     backgroundSize: '3px 3px'
                   }}
                 />
-                
+
                 <div className="flex justify-center gap-12 relative z-10 px-8">
-                  <button 
+                  <button
                     onClick={() => handleTurnOff('restart')}
                     className="flex flex-col items-center gap-2 group cursor-pointer"
                   >
@@ -209,7 +209,7 @@ export default function LoginScreen() {
                     <span className="text-white font-medium drop-shadow text-sm">Restart</span>
                   </button>
 
-                  <button 
+                  <button
                     onClick={() => handleTurnOff('shutdown')}
                     className="flex flex-col items-center gap-2 group cursor-pointer"
                   >
@@ -221,7 +221,7 @@ export default function LoginScreen() {
                 </div>
 
                 <div className="mt-8 pr-4 flex justify-end relative z-10">
-                  <button 
+                  <button
                     onClick={() => {
                       soundManager.playClick()
                       setShowTurnOffDialog(false)

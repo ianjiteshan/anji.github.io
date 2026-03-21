@@ -75,7 +75,7 @@ export default function Desktop() {
         const images = posts
           .map((p: any) => p.data.url)
           .filter((url: string) => url.match(/\.(jpeg|jpg|png)$/i))
-        
+
         if (images.length > 0) {
           // Pick a random image from the hot page
           const randomImage = images[Math.floor(Math.random() * images.length)]
@@ -104,8 +104,19 @@ export default function Desktop() {
         backgroundImage: wallpaper || 'url(https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1920&auto=format&fit=crop)',
       }}
     >
+      {/* Central Photo Widget (Apple Frosted Glass) */}
+      <div className="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[2] pointer-events-auto group">
+        <div className="relative w-[80vw] max-w-[340px] md:max-w-[400px] overflow-hidden rounded-[40px] border border-white/30 shadow-[0_35px_60px_rgba(0,0,0,0.5),inset_0_0_20px_rgba(255,255,255,0.2)] transition-transform duration-500 hover:scale-[1.03] bg-white/10 backdrop-blur-[30px]">
+          <img
+            src={`${import.meta.env.BASE_URL}images/hero-banner.webp`}
+            alt="Hero Widget"
+            className="w-full h-auto block filter contrast-[1.15] drop-shadow-md mix-blend-multiply opacity-90 pointer-events-none"
+          />
+        </div>
+      </div>
+
       {/* iOS Style Floating Dynamic Widgets Sidebar */}
-      <div 
+      <div
         className="absolute top-6 bottom-14 right-4 w-[340px] z-[5] pointer-events-none overflow-y-auto pb-4 flex flex-col gap-5 items-end"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >

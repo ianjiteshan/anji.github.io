@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { projects } from '@/data/projects'
 import { skillCategories, codingProfiles } from '@/data/skills'
 import { getAssetPath } from '@/core/utils/assets'
+import React, { Suspense, lazy } from 'react'
+
+const EmpireManager = lazy(() => import('../empire/EmpireManager'))
 
 const featuredProjects = projects.slice(0, 3)
 const additionalProjects = projects.slice(3, 8)
@@ -89,6 +92,7 @@ const footerReveal = {
     },
   },
 }
+
 
 type GitHubEvent = {
   created_at: string
@@ -479,6 +483,7 @@ const experience = [
 
 export default function RecruiterMode() {
   const [isNightMode, setIsNightMode] = useState(false)
+  const [isEmpireMode, setIsEmpireMode] = useState(false)
   const [activityRows, setActivityRows] = useState<number[][]>(fallbackContributionRows)
   const [activityCount, setActivityCount] = useState(0)
   const [activityState, setActivityState] = useState<'loading' | 'ready' | 'error'>('loading')
@@ -496,104 +501,104 @@ export default function RecruiterMode() {
   ]
   const playTheme = isNightMode
     ? {
-        card: 'bg-[#151a24] border-white/10 text-white',
-        muted: 'text-white/62',
-      }
+      card: 'bg-[#151a24] border-white/10 text-white',
+      muted: 'text-white/62',
+    }
     : {
-        card: 'bg-white border-[#111111]/8 text-[#111111]',
-        muted: 'text-[#111111]/62',
-      }
+      card: 'bg-white border-[#111111]/8 text-[#111111]',
+      muted: 'text-[#111111]/62',
+    }
   const theme = isNightMode
     ? {
-        root: 'bg-[#0b0d12] text-[#f3efe8]',
-        overlay: 'bg-[radial-gradient(circle_at_top_left,_rgba(168,85,247,0.16),_transparent_32%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.06),_transparent_24%)]',
-        glowLeft: 'bg-[#7c3aed]/18',
-        glowRight: 'bg-[#c084fc]/10',
-        rule: 'via-white/10',
-        header: 'border-white/10 bg-[#0b0d12]/80',
-        brand: 'text-white',
-        nav: 'text-white/70 hover:text-white',
-        pill: 'border-white/10 bg-white/5 text-white/72',
-        pillSoft: 'border-white/10 bg-[#171c27] text-white',
-        primaryButton: 'bg-white text-[#111111] hover:bg-[#f0e7ff]',
-        secondaryButton: 'border-white/12 bg-white/5 text-white hover:bg-white hover:text-[#111111]',
-        tertiaryButton: 'border-white/12 bg-[#171c27] text-white hover:bg-[#202738]',
-        statCard: 'border-white/10 bg-white/5 shadow-[0_10px_40px_rgba(0,0,0,0.24)]',
-        statText: 'text-white',
-        statMuted: 'text-white/55',
-        heroCard: 'border-white/10 bg-[#121826] shadow-[0_30px_90px_rgba(0,0,0,0.34)]',
-        surface: 'border-white/10 bg-[#121826]',
-        surfaceSoft: 'bg-[#171d2a]',
-        surfaceMuted: 'bg-[#11151d]',
-        sectionLabel: 'text-white/42',
-        heading: 'text-white',
-        body: 'text-white/68',
-        bodyStrong: 'text-white/78',
-        tag: 'border-white/10 bg-[#171d2a] text-white/70',
-        inverseBlock: 'border-white/10 bg-[#05070b] text-white',
-        sectionBorder: 'border-white/10',
-        marqueeFadeLeft: 'from-[#0b0d12] to-transparent',
-        marqueeFadeRight: 'from-[#0b0d12] to-transparent',
-        marqueeText: 'text-white/45',
-        projectCard: 'border-white/10 bg-[#121826] shadow-[0_20px_60px_rgba(0,0,0,0.22)] hover:shadow-[0_28px_80px_rgba(0,0,0,0.32)]',
-        projectIcon: 'bg-white text-[#111111]',
-        projectMuted: 'text-white/48',
-        projectBody: 'text-white/68',
-        techChip: 'border-white/10 bg-[#171d2a] text-white/68',
-        secondaryProject: 'border-white/10 bg-[#171d2a] hover:bg-[#1d2433] hover:shadow-[0_16px_40px_rgba(0,0,0,0.18)]',
-        timelineCard: 'border-white/10 bg-[#121826] shadow-[0_12px_40px_rgba(0,0,0,0.2)]',
-        timelineBadge: 'border-white/10 bg-[#171d2a] text-white/60',
-        quickPitch: 'border-white/10 bg-[linear-gradient(135deg,#111827_0%,#15192a_60%,#24153a_100%)] shadow-[0_24px_70px_rgba(0,0,0,0.32)]',
-        footer: 'border-white/10 bg-[#05070b] text-white',
-        contactCard: 'border-white/12 bg-white/4 hover:bg-white hover:text-[#111111]',
-        footerLink: 'border-white/12 text-white/72 hover:bg-white hover:text-[#111111]',
-        dot: 'bg-[#c084fc]',
-      }
+      root: 'bg-[#0b0d12] text-[#f3efe8]',
+      overlay: 'bg-[radial-gradient(circle_at_top_left,_rgba(168,85,247,0.16),_transparent_32%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.06),_transparent_24%)]',
+      glowLeft: 'bg-[#7c3aed]/18',
+      glowRight: 'bg-[#c084fc]/10',
+      rule: 'via-white/10',
+      header: 'border-white/10 bg-[#0b0d12]/80',
+      brand: 'text-white',
+      nav: 'text-white/70 hover:text-white',
+      pill: 'border-white/10 bg-white/5 text-white/72',
+      pillSoft: 'border-white/10 bg-[#171c27] text-white',
+      primaryButton: 'bg-white text-[#111111] hover:bg-[#f0e7ff]',
+      secondaryButton: 'border-white/12 bg-white/5 text-white hover:bg-white hover:text-[#111111]',
+      tertiaryButton: 'border-white/12 bg-[#171c27] text-white hover:bg-[#202738]',
+      statCard: 'border-white/10 bg-white/5 shadow-[0_10px_40px_rgba(0,0,0,0.24)]',
+      statText: 'text-white',
+      statMuted: 'text-white/55',
+      heroCard: 'border-white/10 bg-[#121826] shadow-[0_30px_90px_rgba(0,0,0,0.34)]',
+      surface: 'border-white/10 bg-[#121826]',
+      surfaceSoft: 'bg-[#171d2a]',
+      surfaceMuted: 'bg-[#11151d]',
+      sectionLabel: 'text-white/42',
+      heading: 'text-white',
+      body: 'text-white/68',
+      bodyStrong: 'text-white/78',
+      tag: 'border-white/10 bg-[#171d2a] text-white/70',
+      inverseBlock: 'border-white/10 bg-[#05070b] text-white',
+      sectionBorder: 'border-white/10',
+      marqueeFadeLeft: 'from-[#0b0d12] to-transparent',
+      marqueeFadeRight: 'from-[#0b0d12] to-transparent',
+      marqueeText: 'text-white/45',
+      projectCard: 'border-white/10 bg-[#121826] shadow-[0_20px_60px_rgba(0,0,0,0.22)] hover:shadow-[0_28px_80px_rgba(0,0,0,0.32)]',
+      projectIcon: 'bg-white text-[#111111]',
+      projectMuted: 'text-white/48',
+      projectBody: 'text-white/68',
+      techChip: 'border-white/10 bg-[#171d2a] text-white/68',
+      secondaryProject: 'border-white/10 bg-[#171d2a] hover:bg-[#1d2433] hover:shadow-[0_16px_40px_rgba(0,0,0,0.18)]',
+      timelineCard: 'border-white/10 bg-[#121826] shadow-[0_12px_40px_rgba(0,0,0,0.2)]',
+      timelineBadge: 'border-white/10 bg-[#171d2a] text-white/60',
+      quickPitch: 'border-white/10 bg-[linear-gradient(135deg,#111827_0%,#15192a_60%,#24153a_100%)] shadow-[0_24px_70px_rgba(0,0,0,0.32)]',
+      footer: 'border-white/10 bg-[#05070b] text-white',
+      contactCard: 'border-white/12 bg-white/4 hover:bg-white hover:text-[#111111]',
+      footerLink: 'border-white/12 text-white/72 hover:bg-white hover:text-[#111111]',
+      dot: 'bg-[#c084fc]',
+    }
     : {
-        root: 'bg-[#f4efe6] text-[#111111]',
-        overlay: 'bg-[radial-gradient(circle_at_top_left,_rgba(247,147,30,0.14),_transparent_32%),radial-gradient(circle_at_top_right,_rgba(17,17,17,0.08),_transparent_28%)]',
-        glowLeft: 'bg-[#f7931e]/10',
-        glowRight: 'bg-[#111111]/6',
-        rule: 'via-[#111111]/10',
-        header: 'border-[#111111]/6 bg-[#f4efe6]/80',
-        brand: 'text-[#111111]',
-        nav: 'text-[#111111]/70 hover:text-[#111111]',
-        pill: 'border-[#111111]/10 bg-white/70 text-[#111111]/60',
-        pillSoft: 'border-[#111111]/10 bg-white/80 text-[#111111]',
-        primaryButton: 'bg-[#111111] text-white hover:bg-[#222222]',
-        secondaryButton: 'border-[#111111]/12 bg-white/80 text-[#111111] hover:bg-white',
-        tertiaryButton: 'border-[#111111]/12 bg-[#f8f4ec] text-[#111111] hover:bg-white',
-        statCard: 'border-[#111111]/8 bg-white/80 shadow-[0_10px_40px_rgba(17,17,17,0.04)]',
-        statText: 'text-[#111111]',
-        statMuted: 'text-[#111111]/55',
-        heroCard: 'border-[#111111]/10 bg-white shadow-[0_30px_90px_rgba(17,17,17,0.14)]',
-        surface: 'border-[#111111]/8 bg-white',
-        surfaceSoft: 'bg-[#f8f4ec]',
-        surfaceMuted: 'bg-white',
-        sectionLabel: 'text-[#111111]/42',
-        heading: 'text-[#111111]',
-        body: 'text-[#111111]/68',
-        bodyStrong: 'text-[#111111]/78',
-        tag: 'border-[#111111]/8 bg-white text-[#111111]/65',
-        inverseBlock: 'border-[#111111]/8 bg-[#111111] text-white',
-        sectionBorder: 'border-[#111111]/10',
-        marqueeFadeLeft: 'from-[#f4efe6] to-transparent',
-        marqueeFadeRight: 'from-[#f4efe6] to-transparent',
-        marqueeText: 'text-[#111111]/48',
-        projectCard: 'border-[#111111]/8 bg-white shadow-[0_20px_60px_rgba(17,17,17,0.05)] hover:shadow-[0_28px_80px_rgba(17,17,17,0.10)]',
-        projectIcon: 'bg-[#111111] text-white',
-        projectMuted: 'text-[#111111]/48',
-        projectBody: 'text-[#111111]/64',
-        techChip: 'border-[#111111]/8 bg-[#f8f4ec] text-[#111111]/60',
-        secondaryProject: 'border-[#111111]/8 bg-[#f8f4ec] hover:bg-white hover:shadow-[0_16px_40px_rgba(17,17,17,0.06)]',
-        timelineCard: 'border-[#111111]/8 bg-white/78 shadow-[0_12px_40px_rgba(17,17,17,0.04)]',
-        timelineBadge: 'border-[#111111]/8 bg-[#f8f4ec] text-[#111111]/55',
-        quickPitch: 'border-[#111111]/8 bg-[linear-gradient(135deg,#111111_0%,#1f1f1f_60%,#2c2c2c_100%)] shadow-[0_24px_70px_rgba(17,17,17,0.22)]',
-        footer: 'border-[#111111]/10 bg-[#111111] text-white',
-        contactCard: 'border-white/12 bg-white/4 hover:bg-white hover:text-[#111111]',
-        footerLink: 'border-white/12 text-white/72 hover:bg-white hover:text-[#111111]',
-        dot: 'bg-[#f7931e]',
-      }
+      root: 'bg-[#f4efe6] text-[#111111]',
+      overlay: 'bg-[radial-gradient(circle_at_top_left,_rgba(247,147,30,0.14),_transparent_32%),radial-gradient(circle_at_top_right,_rgba(17,17,17,0.08),_transparent_28%)]',
+      glowLeft: 'bg-[#f7931e]/10',
+      glowRight: 'bg-[#111111]/6',
+      rule: 'via-[#111111]/10',
+      header: 'border-[#111111]/6 bg-[#f4efe6]/80',
+      brand: 'text-[#111111]',
+      nav: 'text-[#111111]/70 hover:text-[#111111]',
+      pill: 'border-[#111111]/10 bg-white/70 text-[#111111]/60',
+      pillSoft: 'border-[#111111]/10 bg-white/80 text-[#111111]',
+      primaryButton: 'bg-[#111111] text-white hover:bg-[#222222]',
+      secondaryButton: 'border-[#111111]/12 bg-white/80 text-[#111111] hover:bg-white',
+      tertiaryButton: 'border-[#111111]/12 bg-[#f8f4ec] text-[#111111] hover:bg-white',
+      statCard: 'border-[#111111]/8 bg-white/80 shadow-[0_10px_40px_rgba(17,17,17,0.04)]',
+      statText: 'text-[#111111]',
+      statMuted: 'text-[#111111]/55',
+      heroCard: 'border-[#111111]/10 bg-white shadow-[0_30px_90px_rgba(17,17,17,0.14)]',
+      surface: 'border-[#111111]/8 bg-white',
+      surfaceSoft: 'bg-[#f8f4ec]',
+      surfaceMuted: 'bg-white',
+      sectionLabel: 'text-[#111111]/42',
+      heading: 'text-[#111111]',
+      body: 'text-[#111111]/68',
+      bodyStrong: 'text-[#111111]/78',
+      tag: 'border-[#111111]/8 bg-white text-[#111111]/65',
+      inverseBlock: 'border-[#111111]/8 bg-[#111111] text-white',
+      sectionBorder: 'border-[#111111]/10',
+      marqueeFadeLeft: 'from-[#f4efe6] to-transparent',
+      marqueeFadeRight: 'from-[#f4efe6] to-transparent',
+      marqueeText: 'text-[#111111]/48',
+      projectCard: 'border-[#111111]/8 bg-white shadow-[0_20px_60px_rgba(17,17,17,0.05)] hover:shadow-[0_28px_80px_rgba(17,17,17,0.10)]',
+      projectIcon: 'bg-[#111111] text-white',
+      projectMuted: 'text-[#111111]/48',
+      projectBody: 'text-[#111111]/64',
+      techChip: 'border-[#111111]/8 bg-[#f8f4ec] text-[#111111]/60',
+      secondaryProject: 'border-[#111111]/8 bg-[#f8f4ec] hover:bg-white hover:shadow-[0_16px_40px_rgba(17,17,17,0.06)]',
+      timelineCard: 'border-[#111111]/8 bg-white/78 shadow-[0_12px_40px_rgba(17,17,17,0.04)]',
+      timelineBadge: 'border-[#111111]/8 bg-[#f8f4ec] text-[#111111]/55',
+      quickPitch: 'border-[#111111]/8 bg-[linear-gradient(135deg,#111111_0%,#1f1f1f_60%,#2c2c2c_100%)] shadow-[0_24px_70px_rgba(17,17,17,0.22)]',
+      footer: 'border-[#111111]/10 bg-[#111111] text-white',
+      contactCard: 'border-white/12 bg-white/4 hover:bg-white hover:text-[#111111]',
+      footerLink: 'border-white/12 text-white/72 hover:bg-white hover:text-[#111111]',
+      dot: 'bg-[#f7931e]',
+    }
 
   useEffect(() => {
     let isCancelled = false
@@ -702,16 +707,55 @@ export default function RecruiterMode() {
     { value: '8', label: 'Current CGPA at USICT' },
   ]
 
+  const toggleEmpireMode = useCallback(() => {
+    setIsEmpireMode((prev) => !prev)
+  }, [])
+
   return (
-    <div className={`fixed inset-0 overflow-y-auto overflow-x-hidden transition-colors duration-500 ${theme.root}`}>
+    <div className={`fixed inset-0 overflow-y-auto overflow-x-hidden transition-colors duration-500 ${theme.root} ${isEmpireMode ? 'recruiter-empire-mode' : ''}`}>
       <style>{`
         @keyframes recruiter-marquee {
           from { transform: translateX(0); }
           to { transform: translateX(-50%); }
         }
+        @keyframes recruiter-empire-pulse {
+          0%, 100% {
+            transform: scale(1);
+            filter: saturate(1) contrast(1);
+          }
+          35% {
+            transform: scale(1.004);
+            filter: saturate(1.12) contrast(1.04);
+          }
+          68% {
+            transform: scale(0.998);
+            filter: saturate(1.06) contrast(1.02);
+          }
+        }
+        @keyframes recruiter-empire-aura {
+          0%, 100% {
+            opacity: 0.45;
+            transform: scale(1) translateY(0);
+          }
+          50% {
+            opacity: 0.92;
+            transform: scale(1.03) translateY(-1.5%);
+          }
+        }
+        .recruiter-empire-mode {
+          animation: recruiter-empire-pulse 5.6s ease-in-out infinite;
+          transform-origin: center top;
+          will-change: transform, filter;
+        }
+        .recruiter-empire-aura {
+          animation: recruiter-empire-aura 5.8s ease-in-out infinite;
+        }
       `}</style>
       <div className="relative min-h-full">
         <div className={`absolute inset-0 ${theme.overlay}`} />
+        {isEmpireMode && (
+          <div className="recruiter-empire-aura pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(192,132,252,0.18),_transparent_26%),radial-gradient(circle_at_bottom,_rgba(248,113,113,0.12),_transparent_34%)] mix-blend-screen" />
+        )}
         <div className={`absolute left-[-8rem] top-24 h-56 w-56 rounded-full blur-3xl ${theme.glowLeft}`} />
         <div className={`absolute right-[-4rem] top-0 h-64 w-64 rounded-full blur-3xl ${theme.glowRight}`} />
         <div className={`absolute inset-x-0 top-[28rem] h-px bg-gradient-to-r from-transparent ${theme.rule} to-transparent`} />
@@ -832,11 +876,10 @@ export default function RecruiterMode() {
                         <img src={getAssetPath('images/avatar.webp')} alt="Anjitesh" className="h-full w-full object-cover" loading="lazy" />
                       </div>
                       <div
-                        className={`rounded-[1.35rem] border px-4 py-3 pb-3.5 backdrop-blur-md ${
-                          isNightMode
+                        className={`rounded-[1.35rem] border px-4 py-3 pb-3.5 backdrop-blur-md ${isNightMode
                             ? 'border-white/12 bg-[#0f1520]/72 text-white shadow-[0_16px_40px_rgba(0,0,0,0.28)]'
                             : 'border-white/45 bg-white/72 text-[#111111] shadow-[0_16px_40px_rgba(17,17,17,0.10)]'
-                        }`}
+                          }`}
                       >
                         <h2 className={`text-2xl font-semibold tracking-[-0.04em] ${isNightMode ? 'text-white' : 'text-[#111111]'}`}>Anjitesh Shandilya</h2>
                         <p className={`mt-1 text-sm ${isNightMode ? 'text-white/78' : 'text-[#111111]/72'}`}>Backend Engineer • AI/ML • Distributed Systems</p>
@@ -953,13 +996,15 @@ export default function RecruiterMode() {
               >
                 <div className={`relative aspect-[9/16] w-full overflow-hidden ${isNightMode ? 'bg-[#050608]' : 'bg-[#f3efe6]'}`}>
                   <video
-                    className="absolute inset-0 h-full w-full object-contain"
+                    className="absolute inset-0 h-full w-full object-cover"
                     autoPlay
                     loop
                     muted
                     playsInline
+                    preload="metadata"
+                    poster={getAssetPath('images/revan-poster.webp')}
                   >
-                    <source src={getAssetPath('media-darth-vader.mp4')} type="video/mp4" />
+                    <source src={getAssetPath('media-revan-loop.mp4')} type="video/mp4" />
                   </video>
                   <div className={`absolute inset-0 ${isNightMode ? 'bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.12),transparent_46%),linear-gradient(180deg,rgba(8,10,16,0.05)_0%,rgba(8,10,16,0.28)_100%)]' : 'bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.1),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.04)_0%,rgba(17,17,17,0.12)_100%)]'}`} />
                 </div>
@@ -1386,9 +1431,31 @@ export default function RecruiterMode() {
                 ))}
               </motion.div>
             </motion.div>
+            <motion.div variants={settleSoft} className="mt-8 flex items-center justify-end border-t border-white/10 pt-6">
+              <button
+                type="button"
+                onClick={() => { void toggleEmpireMode() }}
+                aria-pressed={isEmpireMode}
+                aria-label={isEmpireMode ? 'Stop Imperial March easter egg' : 'Play Imperial March easter egg'}
+                title={isEmpireMode ? 'Silence the Empire' : 'For the Empire'}
+                className={`group inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] uppercase tracking-[0.28em] transition-all duration-500 cursor-pointer ${isEmpireMode
+                    ? 'border-[#c084fc]/45 bg-[#c084fc]/12 text-[#f5d0fe] shadow-[0_0_30px_rgba(168,85,247,0.18)]'
+                    : 'border-white/8 bg-white/4 text-white/24 hover:border-white/18 hover:text-white/58'
+                  }`}
+              >
+                <span className={`h-2 w-2 rounded-full transition-all duration-500 ${isEmpireMode ? 'bg-[#f472b6] shadow-[0_0_18px_rgba(244,114,182,0.95)]' : 'bg-white/28 group-hover:bg-white/62'}`} />
+                <span>{isEmpireMode ? 'Empire Mode' : 'For the Empire'}</span>
+              </button>
+            </motion.div>
           </motion.div>
         </div>
       </motion.footer>
+
+      {isEmpireMode && (
+        <Suspense fallback={null}>
+          <EmpireManager onExit={() => setIsEmpireMode(false)} />
+        </Suspense>
+      )}
     </div>
   )
 }

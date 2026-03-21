@@ -6,10 +6,10 @@
  */
 export const getAssetPath = (path: string): string => {
   const base = import.meta.env.BASE_URL || '/';
-  
+
   // Ensure base ends with a slash and the path doesn't start with one to avoid double slashes
   const cleanBase = base.endsWith('/') ? base : `${base}/`;
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-  
+
   return `${cleanBase}${cleanPath}`;
 };

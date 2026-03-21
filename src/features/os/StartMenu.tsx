@@ -66,10 +66,10 @@ const RIGHT_LINKS = [
   { separator: true },
   { label: 'Recruiter Mode', icon: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#FFB300"/><path fill="#FFF" d="M30 18H18v-3c0-2.209 1.791-4 4-4h4c2.209 0 4 1.791 4 4v3zM14 18h20v18H14V18z"/></svg>', url: '#recruiter', isPrimary: true },
   { separator: true },
-  { 
-    label: 'Recently Used', 
-    icon: xpIcons.recent, 
-    hasSubmenu: true, 
+  {
+    label: 'Recently Used',
+    icon: xpIcons.recent,
+    hasSubmenu: true,
     url: '#',
     submenu: [
       { label: 'Adobe After Effects', icon: xpIcons.ae },
@@ -165,7 +165,7 @@ export default function StartMenu() {
                 )
               ))}
             </div>
-            
+
             <div className="mt-auto border-t border-gray-200 h-10 flex items-center shrink-0">
               <button
                 className="w-full h-full flex items-center justify-center gap-2 hover:bg-[#2f71cd] hover:text-white text-black transition-none cursor-pointer group"
@@ -181,10 +181,10 @@ export default function StartMenu() {
 
           {/* Right: Links (Light Blue Ribbed) */}
           <div className="flex-1 bg-[#d3e5fa] py-2 flex flex-col relative"
-               style={{
-                 backgroundImage: 'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px)',
-                 backgroundSize: '100% 3px'
-               }}
+            style={{
+              backgroundImage: 'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px)',
+              backgroundSize: '100% 3px'
+            }}
           >
             {RIGHT_LINKS.map((link, i) => (
               link.separator ? (
@@ -211,23 +211,23 @@ export default function StartMenu() {
                     }}
                     target={link.url !== '#' && link.url !== '#recruiter' && !(link as any).disabled ? '_blank' : undefined}
                     rel="noopener noreferrer"
-                    className={'flex items-center gap-2 px-3 py-[7px] ' + 
-                      ((link as any).disabled ? 'opacity-40 grayscale cursor-default pointer-events-none ' : 'hover:bg-[#2f71cd] hover:text-white text-[#001366] cursor-pointer ') + 
+                    className={'flex items-center gap-2 px-3 py-[7px] ' +
+                      ((link as any).disabled ? 'opacity-40 grayscale cursor-default pointer-events-none ' : 'hover:bg-[#2f71cd] hover:text-white text-[#001366] cursor-pointer ') +
                       (link.hasSubmenu ? 'pr-1' : '')}
                   >
                     {(link as any).icon && <div className={'w-6 h-6 flex items-center justify-center shrink-0 ' + ((link as any).isChild ? 'pl-2 scale-90' : '')} dangerouslySetInnerHTML={{ __html: (link as any).icon }} />}
                     <span className={'text-[13px] flex-1 ' + (link.hasSubmenu || (link as any).isChild ? '' : 'font-bold ') + ((link as any).isPrimary ? 'text-[#e65c00] group-hover:text-white' : '')}>{link.label}</span>
                     {link.hasSubmenu && <span className="text-[10px] pr-2 opacity-70 group-hover:text-white flex-shrink-0">▶</span>}
                   </a>
-                  
+
                   {/* Nested Submenu */}
                   {(link as any).submenu && (
                     <div className="absolute left-full top-[-100px] hidden group-hover:block ml-0 z-[9999] w-[220px]">
                       <div className="bg-white border border-[#001366] shadow-[2px_4px_10px_rgba(0,0,0,0.3)] py-1 relative"
-                           style={{
-                             backgroundImage: 'linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px)',
-                             backgroundSize: '100% 3px'
-                           }}>
+                        style={{
+                          backgroundImage: 'linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px)',
+                          backgroundSize: '100% 3px'
+                        }}>
                         {/* the left blue stripe common in XP submenus */}
                         <div className="absolute top-0 bottom-0 left-0 w-8 bg-gradient-to-b from-[#e3eaff] to-[#c7d8ff] border-r border-[#99b4d1] z-0" />
                         <div className="relative z-10 flex flex-col gap-0.5">
@@ -262,7 +262,7 @@ export default function StartMenu() {
             </div>
             Log Off
           </button>
-          
+
           <button
             onClick={handleShutdown}
             className="flex items-center gap-1.5 px-2 py-1 hover:brightness-110 text-white text-[13px] cursor-pointer group rounded"

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useUIStore } from '@/core/store/useUIStore'
+import { getAssetPath } from '@/core/utils/assets'
 import { useWindowStore } from '@/core/store/useWindowStore'
 import { useSystemStore } from '@/core/store/useSystemStore'
 import { soundManager } from '@/core/utils/sounds'
@@ -134,7 +135,7 @@ export default function StartMenu() {
         {/* Top Header */}
         <div className="bg-gradient-to-r from-[#1c4b9c] to-[#3a72c4] p-2 pt-3 pb-3 flex items-center pr-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] rounded-tr-md">
           <div className="w-[52px] h-[52px] rounded-md overflow-hidden border-2 border-white/80 shadow-md ml-1 bg-gradient-to-b from-[#e2e8f0] to-[#94a3b8] flex shrink-0">
-            <img src={`${import.meta.env.BASE_URL}images/avatar.webp`} alt="User" className="w-full h-full object-cover" loading="lazy" />
+            <img src={getAssetPath('images/avatar.webp')} alt="User" className="w-full h-full object-cover" loading="lazy" />
           </div>
           <div className="ml-3 text-white font-bold text-[22px] drop-shadow-[1px_1px_2px_rgba(0,0,0,0.6)]">
             Anjitesh Shandilya

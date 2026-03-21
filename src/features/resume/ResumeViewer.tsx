@@ -1,3 +1,5 @@
+import { getAssetPath } from '@/core/utils/assets'
+
 export default function ResumeViewer() {
   return (
     <div className="h-full flex flex-col">
@@ -5,7 +7,7 @@ export default function ResumeViewer() {
       <div className="shrink-0 px-4 py-2 bg-white/3 border-b border-white/5 flex items-center justify-between">
         <span className="text-xs text-white/50">Resume.pdf</span>
         <a
-          href={`${import.meta.env.BASE_URL}Resume.pdf`}
+          href={getAssetPath('Resume.pdf')}
           target="_blank"
           rel="noopener noreferrer"
           className="px-3 py-1 rounded text-xs bg-blue-500/15 text-blue-300 hover:bg-blue-500/25 border border-blue-400/15 transition-colors"
@@ -17,7 +19,7 @@ export default function ResumeViewer() {
       {/* PDF embed with fallback */}
       <div className="flex-1 relative">
         <object
-          data={`${import.meta.env.BASE_URL}Resume.pdf`}
+          data={getAssetPath('Resume.pdf')}
           type="application/pdf"
           className="w-full h-full"
         >
@@ -28,7 +30,7 @@ export default function ResumeViewer() {
               PDF preview is not supported in this browser.
             </p>
             <a
-              href={`${import.meta.env.BASE_URL}Resume.pdf`}
+              href={getAssetPath('Resume.pdf')}
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-2.5 rounded-lg bg-blue-500/20 text-blue-300 hover:bg-blue-500/30 border border-blue-400/20 transition-colors font-medium text-sm"
